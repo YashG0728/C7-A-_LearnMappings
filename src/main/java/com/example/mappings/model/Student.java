@@ -1,6 +1,10 @@
 package com.example.mappings.model;
 
 import jakarta.persistence.*;
+import org.springframework.aop.target.LazyInitTargetSource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "jpa_student") //parentTable
@@ -10,11 +14,19 @@ public class Student {
     private int studentId;
     private String studentName;
     private String about;
-    @OneToOne(mappedBy = "student",cascade = CascadeType.ALL)
-    //mapped by use for bi-directional mapping (both table contain foreign keys)
+
+    //one laptop
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    //mapped by use for bi-directional mapping (both table contain foreign keys) //unidirectional
     //cascadeType is use to save data of parent table and child table both(all operations perform for both tables e.g - remove & save)
     //here we r using cascade so we dont need to save laptop is save with student data(is we r not using cascade we need to save laptop data manually)
     private Laptop laptop;
+
+    //many address
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
+    //mapped by means to convert uni-directional mapping into bi-directionalmapping
+    //cascade used tp perform operations in both table at same time (parent and child)
+    private List<Address> addressList = new ArrayList<>();
 
     public Student() {
 
@@ -57,5 +69,13 @@ public class Student {
 
     public void setLaptop(Laptop laptop) {
         this.laptop = laptop;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
     }
 }

@@ -12,6 +12,7 @@ public class Laptop {
     private String brand;
 
     @OneToOne
+    @JoinColumn(name = "student_id")
     private Student student;
 
     public Laptop() {
