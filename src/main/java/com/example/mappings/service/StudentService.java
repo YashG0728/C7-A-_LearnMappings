@@ -26,7 +26,42 @@ public class StudentService {
     private ProductRepo productRepo;
 
     public void addStudent(){
+//        Student student = new Student();
+//        student.setStudentId(3);
+//        student.setStudentName("Bharat");
+//        student.setAbout("I am learning one to many mapping");
 
+//        Laptop laptop = new Laptop();
+//        laptop.setLaptopId(103);
+//        laptop.setBrand("Dell");
+//        laptop.setModelNumber("123457");
+//        laptop.setStudent(student);
+//        student.setLaptop(laptop);
+
+//        Address address = new Address();
+//        address.setAddress_id(1001);
+//        address.setCity("Nagpur");
+//        address.setStreet("Street number 4");
+//        address.setCountry("India");
+//        address.setStudent(student);
+//
+//        Address address1 = new Address();
+//        address1.setAddress_id(1001);
+//        address1.setCity("Nagpur");
+//        address1.setStreet("Street number 4");
+//        address1.setCountry("India");
+//        address1.setStudent(student);
+//
+//        List<Address> addressList = new ArrayList<>();
+//        addressList.add(address);
+//        addressList.add(address1);
+//
+//        student.setAddressList(addressList);
+//
+//        Student save = studentRepository.save(student);
+//        log.info("Save Student : {}"+ " " + save);
+
+        //many to many
         Product product = new Product();
         product.setProduct_id(45);
         product.setProduct_name("Iphone 14 pro max");
@@ -63,9 +98,15 @@ public class StudentService {
     }
 
     public void findStudent(int id){
-        Student student = studentRepository.findById(id).get();
-        log.info("name is {} " + student.getStudentName());
-        Laptop laptop = student.getLaptop();
-        log.info("Laptop "+ " Brand : "+ laptop.getBrand()+ " Model : " +laptop.getModelNumber());
+//        Student student = studentRepository.findById(id).get();
+//        log.info("name is {} " + student.getStudentName());
+//        Laptop laptop = student.getLaptop();
+//        log.info("Laptop "+ " Brand : "+ laptop.getBrand()+ " Model : " +laptop.getModelNumber());
+
+        Category category = categoryRepo.findById(id).get();
+        System.out.println(category.getProductList().size());
+
+        Product product = productRepo.findById(id).get();
+        System.out.println(product.getCategoryList().size());
     }
 }
